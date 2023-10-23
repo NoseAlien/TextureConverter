@@ -3,10 +3,12 @@
 
 void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath)
 {
+	LoadWICTextureFromFile(filePath);
 }
 
 void TextureConverter::LoadWICTextureFromFile(const std::string& filePath)
 {
+	std::wstring wFilePath = ConvertMultibyteStringToWideString(filePath);
 }
 
 std::wstring TextureConverter::ConvertMultibyteStringToWideString(const std::string& mString)
