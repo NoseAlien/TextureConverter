@@ -22,6 +22,7 @@ public:
 
 private:
 	void SeparateFilePath(const std::wstring& filePath);
+	void SaveDDSTextureToFile();
 
 private:
 	static std::wstring ConvertMultibyteStringToWideString(const std::string& mString);
