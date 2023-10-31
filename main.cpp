@@ -18,7 +18,12 @@ int main(int argc, char* argv[])
 
 	//COMライブラリの初期化
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-	assert(SUCCEEDED(hr));
+	if (argc < NumArgument)
+	{
+		//使い方を表示する
+		TextureConverter::OutputUsage();
+		return 0;
+	}
 
 	//テクスチャコンバータ
 	TextureConverter converter;

@@ -17,12 +17,16 @@ private:
 	std::wstring fileExt_;
 
 public:
-	void ConvertTextureWICToDDS(const std::string& filePath);
+	void ConvertTextureWICToDDS(const std::string& filePath,
+		int numOptions = 0, char* options[] = nullptr);
 	void LoadWICTextureFromFile(const std::string& filePath);
 
 private:
 	void SeparateFilePath(const std::wstring& filePath);
 	void SaveDDSTextureToFile();
+
+public:
+	static void OutputUsage();
 
 private:
 	static std::wstring ConvertMultibyteStringToWideString(const std::string& mString);
