@@ -23,7 +23,7 @@ public:
 
 private:
 	void SeparateFilePath(const std::wstring& filePath);
-	void SaveDDSTextureToFile();
+	void SaveDDSTextureToFile(int numOptions, char* options[]);
 
 public:
 	static void OutputUsage();

@@ -2,11 +2,12 @@
 
 using namespace DirectX;
 
-void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath)
+void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath,
+	int numOptions = 0, char* options[] = nullptr)
 {
 	LoadWICTextureFromFile(filePath);
 
-	SaveDDSTextureToFile();
+	SaveDDSTextureToFile(numOptions,options);
 }
 
 void TextureConverter::LoadWICTextureFromFile(const std::string& filePath)
@@ -79,15 +80,28 @@ void TextureConverter::SeparateFilePath(const std::wstring& filePath)
 	fileName_ = exceptExt;
 }
 
-void TextureConverter::SaveDDSTextureToFile()
+void TextureConverter::SaveDDSTextureToFile(int numOptions, char* options[])
 {
+	size_t mipLevel = 0;
+
+	//ミップマップレベル指定を検索
+	for (int i = 0; i < numOptions; i++)
+	{
+		if (std::string(options[i]) == "-ml")
+		{
+			//ミップレベル指定
+			mipLevel = std::stoi(options[i + 1]);
+			break;
+		}
+	}
+
 	HRESULT result;
 
 	ScratchImage mipChain;
 	//ミップマップ生成
 	result = GenerateMipMaps(
 		scratchImage_.GetImages(), scratchImage_.GetImageCount(), scratchImage_.GetMetadata(),
-		TEX_FILTER_DEFAULT, 0, mipChain);
+		TEX_FILTER_DEFAULT, mipLevel, mipChain);
 	if (SUCCEEDED(result))
 	{
 		//イメージとメタデータをミップマップ版で置き換える
