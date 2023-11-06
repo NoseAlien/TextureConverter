@@ -3,7 +3,7 @@
 using namespace DirectX;
 
 void TextureConverter::ConvertTextureWICToDDS(const std::string& filePath,
-	int numOptions = 0, char* options[] = nullptr)
+	int numOptions, char* options[])
 {
 	LoadWICTextureFromFile(filePath);
 
@@ -27,9 +27,11 @@ void TextureConverter::OutputUsage()
 {
 	printf("画像ファイルをWIC形式からDDS形式に変換します。\n");
 	printf("\n");
-	printf("TextureConverter [ドライブ:][パス][ファイル名]\n");
+	printf("TextureConverter [ドライブ:][パス]ファイル名 [-ml level]\n");
 	printf("\n");
-	printf("[ドライブ:][パス][ファイル名]: 変換したいWIC形式の画像ファイルを指定します。\n");
+	printf("[ドライブ:][パス]ファイル名: 変換したいWIC形式の画像ファイルを指定します。\n");
+	printf("\n");
+	printf("[-ml level]: ミップレベルを指定します。0を指定すると1x1までのフルミップマップチェーンを生成します。\n");
 }
 
 void TextureConverter::SeparateFilePath(const std::wstring& filePath)
